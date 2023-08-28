@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className=" w-[1820px] ">
+    <div className="w-[1820px]">
       <div className="h-[4.625rem] border-b-2 flex items-center justify-end ">
         <div className="flex pr-12">
           <p className="font-medium pr-[10px]"><strong>Geferson Oliveira</strong></p>
@@ -28,7 +28,7 @@ export default function Navbar() {
           </li>
 
           <li className="flex items-center ml-8">
-            <Link href="/Note" className="flex" >
+            <Link href="/Notas" className="flex" >
               <Image
                 width={18}
                 height={18}

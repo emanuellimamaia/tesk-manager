@@ -85,12 +85,12 @@ export default function Sidebar() {
         <div className="h-[70rem]">
 
         </div>
-        <div className="flex items-center border-t-2 justify-center">
+        <div className="flex items-center border-y-2 justify-center">
           <Image
-            width={128}
-            height={20}
+            width={100}
+            height={100}
             className={`pt-5 w-11  ${open && "border-none"} `}
-            src="./icons/logo-nav.svg"
+            src="/images/logo_footer_sidebar.png"
             alt="add-quare"
           />
           <Image

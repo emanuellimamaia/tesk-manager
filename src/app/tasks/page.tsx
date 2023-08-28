@@ -1,7 +1,5 @@
-"use client"
-
-import KanbanBoard from "@/components/ColumnContainer/KanbanBoard";
 import { Title } from "@/components/Title";
+import KanbanBoard from "@/components/kanban/KanbanBoard";
 import React from "react";
 
 export default function Tesks() {
@@ -14,7 +12,7 @@ export default function Tesks() {
         description="Gerenciador de tarefas"
         />
       </div>
-      <div className="flex p-x-4 bg-[#F6F6F6] h-screen">
+      <div className="flex p-x-4 bg-[#F6F6F6] max-h-screen max-w-screen">
         <KanbanBoard/>
       </div>
     </>

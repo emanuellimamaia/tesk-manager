@@ -9,4 +9,11 @@ export type Task = {
   id: Id;
   columnId: Id;
   content: string;
+
+};
+export type TaskNotes = {
+  id: Id;
+  columnId: Id;
+  content: string;
+  data: string;
 };

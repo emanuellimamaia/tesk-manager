@@ -1,6 +1,6 @@
+"use client"
 import { useMemo, useState } from "react";
-import { Column, Id, Task } from "../types";
-import ColumnContainer from "./ColumnContainer";
+import { Column, Id, Task, TaskNotes } from "../types";
 import {
   DndContext,
   DragEndEvent,
@@ -13,74 +13,47 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
-import TaskCard from "./TaskCard";
+
+import NotesCard from "./NotesCard";
+import ColumnContainerNotes from "./ColumnContainerNotes";
 
 
 
 const defaultCols: Column[] = [
   {
-    id: "To done",
-    title: "To done",
+    id: "Notes",
+    title: "Anotações",
+    
   },
-  {
-    id: "doing",
-    title: "Work in progress",
-  },
-  {
-    id: "done",
-    title: "Done",
-  },
+
 ];
 
-const defaultTasks: Task[] = [
+const defaultTasks: TaskNotes[] = [
   {
     id: "1",
-    columnId: "To done",
-    content: "List admin APIs for dashboard",
+    columnId: "Notes",
+    content: "Começar projeto de tasks manager",
+    data:"07/OUT/2022",
   },
   {
     id: "2",
-    columnId: "To done",
+    columnId: "Notes",
     content:
-      "Develop user registration functionality with OTP delivered on SMS after email confirmation and phone number confirmation",
+      "Conclusão curso da RocketSeat",
+    data:"28/out/2023"
   },
-  {
-    id: "3",
-    columnId: "doing",
-    content: "Conduct security testing",
-  },
-  {
-    id: "4",
-    columnId: "doing",
-    content: "Analyze competitors",
-  },
-  {
-    id: "5",
-    columnId: "done",
-    content: "Create UI kit documentation",
-  },
-  {
-    id: "6",
-    columnId: "done",
-    content: "Dev meeting",
-  },
-  {
-    id: "7",
-    columnId: "done",
-    content: "Deliver dashboard prototype",
-  },
- 
+
 ];
 
-function KanbanBoard() {
+function NotesBoard() {
   const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+  const [tasks, setTasks] = useState<TaskNotes[]>(defaultTasks);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
-  const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [activeTask, setActiveTask] = useState<TaskNotes | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -113,7 +86,7 @@ function KanbanBoard() {
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
               {columns.map((col) => (
-                <ColumnContainer
+                <ColumnContainerNotes
                   key={col.id}
                   column={col}
                   deleteColumn={deleteColumn}
@@ -153,7 +126,7 @@ function KanbanBoard() {
         {createPortal(
           <DragOverlay>
             {activeColumn && (
-              <ColumnContainer
+              <ColumnContainerNotes
                 column={activeColumn}
                 deleteColumn={deleteColumn}
                 updateColumn={updateColumn}
@@ -166,8 +139,8 @@ function KanbanBoard() {
               />
             )}
             {activeTask && (
-              <TaskCard
-                task={activeTask}
+              <NotesCard
+                taskNotes={activeTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
               />
@@ -180,10 +153,11 @@ function KanbanBoard() {
   );
 
   function createTask(columnId: Id) {
-    const newTask: Task = {
+    const newTask: TaskNotes = {
       id: generateId(),
       columnId,
       content: `Task ${tasks.length + 1}`,
+      data:""
     };
 
     setTasks([...tasks, newTask]);
@@ -276,8 +250,8 @@ function KanbanBoard() {
 
     if (activeId === overId) return;
 
-    const isActiveATask = active.data.current?.type === "Task";
-    const isOverATask = over.data.current?.type === "Task";
+    const isActiveATask = active.data.current?.type === "TaskNotes";
+    const isOverATask = over.data.current?.type === "TaskNotes";
 
     if (!isActiveATask) return;
 
@@ -317,4 +291,4 @@ function generateId() {
   return Math.floor(Math.random() * 10001);
 }
 
-export default KanbanBoard;
+export default NotesBoard;
